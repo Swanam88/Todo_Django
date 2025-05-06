@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="text-center" style="margin-top: 150px;">Hii {{request.user}}, Today's Game Plan 🧠</h2>
+<table class="table w-50 mx-auto mt-5" style="border-collapse: separate; border-spacing: 0 15px;">
+    {% for i in items %}
+    <tr class="mt-2">
+        {% if i.completed_status %}
+            <td><a href="{% url 'detail' i.id %}" class="text-decoration-none text-decoration-line-through text-dark">{{i.task_name}}</a></td>
+        {% else %}
+            <td><a href="{% url 'detail' i.id %}" class="text-decoration-none text-dark">{{i.task_name}}</a></td>
+        {% endif %}
+            <td><a href="{% url 'detail' i.id %}" class="text-decoration-none text-dark text-muted"><i class="fa-regular fa-clock"></i> {{i.due_date}}</a></td>
+            <td><a href="{% url 'update' i.id %}"><i class="fa-solid fa-pen"></i> Update</a></td>
+        {% if i.completed_status %}
+            <td><i class="fa-solid fa-check"></i></td>
+        {% else %}
+            <td><a href="" class="{% url 'edit' i.id %}">Mark as Done</a></td>
+        {% endif %}
+        <td><a href="{% url 'delete' i.id %}"><i class="fa-solid fa-trash"></i></a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %} 
